@@ -1,1 +1,1 @@
-# 3D-Jupiter-Three.js-Example-
+# 3D-Jupiter-Three.js-Example
