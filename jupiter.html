@@ -9,15 +9,16 @@
       margin: 0;
     }
   </style>
-  <title>Three.js Solar System</title>
+  <title>Three.js 3D Jupiter and its 95 Moons</title>
 </head>
 <body>
 
 <script type="module">
   import * as THREE from "https://esm.sh/three";
   import { OrbitControls } from "https://esm.sh/three/addons/controls/OrbitControls.js";
+  import { FontLoader } from "https://esm.sh/three/examples/jsm/loaders/FontLoader.js";
+import { TextGeometry } from "https://esm.sh/three/examples/jsm/geometries/TextGeometry.js";
 
-  console.clear();
 
   // Set up scene
   let scene = new THREE.Scene();
@@ -76,14 +77,12 @@
     '/ay-code/moons/moon4.jpg',
     '/ay-code/moons/moon5.jpg',
     '/ay-code/moons/moon6.jpg',
-
     '/ay-code/moons/moon7.jpg',
     '/ay-code/moons/moon8.jpg',
     '/ay-code/moons/moon9.jpg',
     '/ay-code/moons/moon10.jpg',
     '/ay-code/moons/moon11.jpg',
     '/ay-code/moons/moon12.jpg',
-
     '/ay-code/moons/moon13.jpg',
     '/ay-code/moons/moon14.jpg',
     '/ay-code/moons/moon15.jpg',
@@ -122,6 +121,29 @@
 
   let clock = new THREE.Clock();
   let t = 0;
+
+  // Create text geometry
+  const fontLoader = new FontLoader();
+let textMesh;
+
+fontLoader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function(font) {
+  const textGeometry = new TextGeometry('Abhishek Verma (abhishekayu)', {
+    font: font,
+    size: 2,
+    height: 0.2,
+    opacity: 0.5,
+  });
+  
+  const textMaterial = new THREE.MeshBasicMaterial({ color: 0x454443 }); // Yellow color
+  textMesh = new THREE.Mesh(textGeometry, textMaterial);
+
+  // Position the text relative to the Earth
+  textMesh.position.copy(earth.position);
+  textMesh.position.y += 100;
+  textMesh.position.x -= 20;
+
+  scene.add(textMesh);
+});
 
   // Animation loop
   renderer.setAnimationLoop(() => {
